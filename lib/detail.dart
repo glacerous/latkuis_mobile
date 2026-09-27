@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'models/animal.dart';
-import 'detail.dart';
-
 
 class DetailPage extends StatelessWidget {
   final Animal animal;

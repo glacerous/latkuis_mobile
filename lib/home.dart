@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'models/animal.dart';
 import 'detail.dart';
+import 'login.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -11,6 +12,19 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Animals List'),
         centerTitle: true,
+       actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              // Navigasi Logout: Hapus semua tumpukan halaman (Modul 4 Hal. 63)
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginPage()),
+                (route) => false,
+              );
+            },
+          ),
+        ],
       ),
       body: GridView.builder(
         itemCount: dummyAnimals.length,
