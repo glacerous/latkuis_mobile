@@ -9,134 +9,108 @@ class DetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        title: Text(animal.name),
         backgroundColor: Colors.teal,
         foregroundColor: Colors.white,
-        title: Text(
-          animal.name,
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
+        elevation: 0,
       ),
-      body: Center(
-        child: SizedBox(
-          width: 480,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    animal.image,
-                    width: double.infinity,
-                    height: 220,
-                    fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: double.infinity,
+              height: 250,
+              child: Image.network(
+                animal.image,
+                width: double.infinity,
+                height: 250,
+                fit: BoxFit.cover,
+                errorBuilder: (ctx, err, stack) => Container(
+                  width: double.infinity,
+                  height: 250,
+                  color: Colors.grey[200],
+                  child: const Center(
+                    child: Icon(Icons.broken_image, size: 50, color: Colors.grey),
                   ),
                 ),
-                const SizedBox(height: 18),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      animal.name,
-                      style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: Colors.teal.shade50,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Text(
-                        animal.type,
-                        style: TextStyle(
-                          color: Colors.teal.shade800,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Card(
-                  elevation: 1,
+              ),
+            ),
+            Transform.translate(
+              offset: const Offset(0, -20),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+                decoration: const BoxDecoration(
                   color: Colors.white,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          children: [
-                            const Text('Tinggi', style: TextStyle(color: Colors.grey, fontSize: 12)),
-                            const SizedBox(height: 4),
-                            Text('${animal.height} cm', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                          ],
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: Colors.teal.shade50,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Text(
+                            animal.type,
+                            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.teal.shade800),
+                          ),
                         ),
-                        Container(height: 30, width: 1, color: Colors.grey.shade300),
-                        Column(
-                          children: [
-                            const Text('Berat', style: TextStyle(color: Colors.grey, fontSize: 12)),
-                            const SizedBox(height: 4),
-                            Text('${animal.weight} kg', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                          ],
+                        Text(
+                          '${animal.weight} kg',
+                          style: TextStyle(fontSize: 13, color: Colors.grey[600]),
                         ),
                       ],
                     ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                  'Habitat',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 8),
-                Wrap(
-                  spacing: 6.0,
-                  runSpacing: 6.0,
-                  children: animal.habitat.map((h) => Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(color: Colors.black26),
-                      borderRadius: BorderRadius.circular(6),
+                    const SizedBox(height: 12),
+                    Text(
+                      animal.name,
+                      style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
-                    child: Text(h, style: const TextStyle(fontSize: 12)),
-                  )).toList(),
+                    const SizedBox(height: 20),
+                    _buildRowItem(Icons.height, "Tinggi", "${animal.height} cm"),
+                    _buildRowItem(Icons.scale_outlined, "Berat", "${animal.weight} kg"),
+                    _buildRowItem(Icons.park_outlined, "Habitat", animal.habitat.join(', ')),
+                    _buildRowItem(Icons.pets_outlined, "Aktivitas", animal.activities.join(', ')),
+                  ],
                 ),
-                const SizedBox(height: 20),
-                const Text(
-                  'Aktivitas',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 8),
-                Wrap(
-                  spacing: 6.0,
-                  runSpacing: 6.0,
-                  children: animal.activities.map((act) => Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: Colors.teal.shade50,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      act,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.teal.shade900,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  )).toList(),
-                ),
-              ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRowItem(IconData icon, String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 14.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, size: 20, color: Colors.teal),
+          const SizedBox(width: 12),
+          SizedBox(
+            width: 90,
+            child: Text(
+              label,
+              style: TextStyle(fontSize: 13, color: Colors.grey[600], fontWeight: FontWeight.w500),
             ),
           ),
-        ),
+          Expanded(
+            child: Text(
+              value,
+              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.black87),
+            ),
+          ),
+        ],
       ),
     );
   }
