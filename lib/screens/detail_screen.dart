@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import '../models/animal.dart';
 
-class DetailPage extends StatelessWidget {
+class DetailScreen extends StatelessWidget {
   final Animal animal;
 
-  const DetailPage({super.key, required this.animal});
+  const DetailScreen({super.key, required this.animal});
 
   @override
   Widget build(BuildContext context) {

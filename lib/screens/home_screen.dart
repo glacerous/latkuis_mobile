@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import '../models/animal.dart';
-import 'detail_page.dart';
-import 'login_page.dart';
+import 'detail_screen.dart';
+import 'login_screen.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget {
             onPressed: () {
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => const LoginPage()),
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
                 (route) => false,
               );
             },
@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DetailPage(animal: animal),
+                      builder: (context) => DetailScreen(animal: animal),
                     ),
                   );
                 },

@@ -1,30 +1,45 @@
 import 'package:flutter/material.dart';
-import 'home_page.dart';
+import '../models/user.dart';
+import 'home_screen.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool isLoggedin = false;
 
   void _login() {
     String username = _usernameController.text;
     String password = _passwordController.text;
 
-    if (username == '124240018' && password == 'sisteminformasi') {
+    if (users.any(
+      (user) => user.username == username && user.password == password,
+    )) {
+      setState(() {
+        isLoggedin = true;
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Login Berhasil!'),
+          backgroundColor: Colors.green,
+        ),
+      );
+
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Login gagal!'),
+          content: Text('Login gagal! Username atau password salah.'),
           backgroundColor: Colors.red,
         ),
       );
